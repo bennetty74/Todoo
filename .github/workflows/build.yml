@@ -57,7 +57,7 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: electron-artifacts-${{ strategy.job-index }}
+        name: electron-artifacts-${{ github.run_id }}-${{ github.run_number }}-${{ strategy.job-index }}
         path: dist/
         overwrite: true
 
