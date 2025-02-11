@@ -1,8 +1,8 @@
 // main/index.js
 const { app, BrowserWindow ,Notification, ipcMain} = require('electron');
 const path = require('path');
-const { exec } = require('child_process');
-exec('npm run dev:next', { cwd: path.join(__dirname, '../next-app') });
+// const { exec } = require('child_process');
+// exec('npm run dev:next', { cwd: path.join(__dirname, '../next-app') });
 
 let mainWindow;
 
@@ -29,7 +29,7 @@ function createWindow() {
     mainWindow.loadFile(staticPath);
   }
 
-  mainWindow.webContents.openDevTools()
+//   mainWindow.webContents.openDevTools()
 
   // 监听来自 Next.js 的任务提醒
   ipcMain.on('send-task-reminder', (event, task) => {

@@ -18,12 +18,15 @@
     "appId": "com.roloo.todoo",
     "productName": "Todoo",
     "mac": {
+      "icon": "build/icons/mac/icon.icns",
       "target": "dmg"
     },
     "win": {
+      "icon": "build/icons/win/icon.ico",
       "target": "nsis"
     },
     "linux": {
+      "icon": "build/icons/png",
       "target": "AppImage"
     }
   }
