@@ -55,7 +55,7 @@ jobs:
       with:
         name: electron-artifacts-${{ github.run_id }}-${{ github.run_number }}-${{ steps.date.outputs.formatted }}
         path: dist/  # 上传构建后的分发包
-        # overwrite: true
+        overwrite: true
 
     - name: Create Release
       id: create_release
