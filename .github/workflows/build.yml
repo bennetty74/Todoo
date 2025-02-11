@@ -17,10 +17,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: '22.13.0'  # 设置 Node.js 版本
 
@@ -45,15 +45,17 @@ jobs:
       # 如果 Electron 项目不在子目录中，就不要设置 working-directory
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: electron-artifacts
         path: dist/  # 上传构建后的分发包
 
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
+        tag_name: v1.0.0  # 设置标签名
+        name: Release 1.0.0  # 设置发布名称
         files: dist/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
