@@ -36,13 +36,16 @@ jobs:
       run: |
         sed -i 's|/\\_next|/_next|g' ./next-app/out/index.html  # 确保路径正确
       working-directory: ./next-app  # 进入 next-app 子目录进行替换
+    
+    # - name: Install dependencies (for Electron)
+    #   run: npm install
 
     - name: Build Electron app
       run: npm run dist  # 执行 Electron 打包命令
       # 如果 Electron 项目不在子目录中，就不要设置 working-directory
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: electron-artifacts
         path: dist/  # 上传构建后的分发包
