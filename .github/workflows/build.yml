@@ -42,7 +42,8 @@ jobs:
 
     - name: Build Electron app
       run: npm run dist  # 执行 Electron 打包命令
-      # 如果 Electron 项目不在子目录中，就不要设置 working-directory
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 设置 GH_TOKEN 环境变量
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4

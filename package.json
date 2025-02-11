@@ -11,7 +11,8 @@
   },
   "devDependencies": {
     "electron": "^34.1.1",
-    "electron-builder": "^25.1.8"
+    "electron-builder": "^25.1.8",
+    "electron-icon-maker": "^0.0.5"
   },
   "build": {
     "appId": "com.roloo.todoo",
