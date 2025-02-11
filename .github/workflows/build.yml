@@ -29,7 +29,7 @@ jobs:
       working-directory: ./next-app  # 确保在 next-app 子目录中安装依赖
 
     - name: Build Next.js app
-      run: npm run build:next  # 执行 Next.js 的构建命令
+      run: npm run build  # 执行 Next.js 的构建命令
       working-directory: ./next-app  # 确保在 next-app 子目录中执行构建
 
     - name: Replace _next in index.html
