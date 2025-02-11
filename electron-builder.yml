@@ -1,0 +1,8 @@
+# electron-builder.yml
+appId: com.roloo.todoo
+productName: Todoo
+directories:
+  output: dist       # 打包输出目录
+files:
+  - "main/**/*"      # 包含主进程代码
+  - "next-app/out/**/*"  # 包含 Next.js 静态文件
