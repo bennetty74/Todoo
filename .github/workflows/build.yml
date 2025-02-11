@@ -34,7 +34,7 @@ jobs:
 
     - name: Replace _next in index.html
       run: |
-        sed -i 's|/\\_next|/_next|g' ./next-app/out/index.html  # 确保路径正确
+        sed -i 's|/\\_next|/_next|g' /out/index.html  # 确保路径正确
       working-directory: ./next-app  # 进入 next-app 子目录进行替换
     
     # - name: Install dependencies (for Electron)
