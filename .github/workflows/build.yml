@@ -20,7 +20,6 @@ jobs:
       credentials:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASS }}
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
