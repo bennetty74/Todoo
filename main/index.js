@@ -35,8 +35,7 @@ function createWindow() {
     new Notification({
       title: 'Task Reminder',
       body: `${task.text}`,
-      requireInteraction: true,
-      timeoutType: 'never'
+      requireInteraction: true
     }).show();
   });
 
