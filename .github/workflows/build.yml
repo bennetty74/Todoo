@@ -18,8 +18,8 @@ jobs:
     container:
       image: multiarch/amd64_ubuntu_18.04_cross
       credentials:
-        username: ${{ secrets.DOCKER_USER }}
-        password: ${{ secrets.DOCKER_PASS }}
+        username: ${{secrets.DOCKER_USER}}
+        password: ${{secrets.DOCKER_PASS}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
