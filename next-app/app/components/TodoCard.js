@@ -28,8 +28,6 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
     x: 0,
     y: 0,
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedTaskText, setEditedTaskText] = useState(task.text);
 
   const priorityColor = {
     low: "bg-green-500 text-white",
@@ -57,19 +55,6 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
     } else {
       return '高';
     }
-  };
-
-  // 修改任务文本
-  const handleEditTask = () => {
-    onEdit(task.id, editedTaskText); // 更新任务
-    setIsEditing(false);
-    closeContextMenu();
-  };
-
-  // 删除任务
-  const handleDeleteTask = () => {
-    onDelete(task.id); // 删除任务
-    closeContextMenu();
   };
 
   return (
@@ -112,7 +97,7 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
         </div>
 
         {/* 显示任务时间 */}
-        <div className="text-[8px] text-gray-500">
+        <div className="text-[10px] text-gray-500">
           {formatTime(task.time)}
         </div>
       </div>

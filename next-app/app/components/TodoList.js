@@ -104,7 +104,7 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
         onDragLeave={() => setDraggingOver(null)}
       >
         {/* <div className="flex flex-row items-center justify-between"> */}
-          <h2 className="text-xl text-center mb-2">Todo</h2>
+          <h2 className="text-xl mb-2">待开始</h2>
           
         {/* </div> */}
         {filteredTasks
@@ -137,7 +137,7 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
         onDragOver={(e) => handleDragOver(e, "doing")}
         onDragLeave={() => setDraggingOver(null)}
       >
-        <h2 className="text-xl text-center mb-2">Doing</h2>
+        <h2 className="text-xl  mb-2">进行中</h2>
         {filteredTasks
           .filter((task) => task.status === "doing")
           .map((task) => (
@@ -145,7 +145,9 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
               key={task.id}
               task={task}
               updateStatus={updateTaskStatus}
-              onDragStart={(e) => handleDragStart(e, task)} // 设置拖动事件
+              onDragStart={(e) => handleDragStart(e, task)}
+              onEdit={handleEditTask}
+              onDelete={handleDeleteTask}
             />
           ))}
       </div>
@@ -162,7 +164,7 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
         onDragOver={(e) => handleDragOver(e, "done")}
         onDragLeave={() => setDraggingOver(null)}
       >
-        <h2 className="text-xl text-center mb-2">Done</h2>
+        <h2 className="text-xl mb-2">已完成</h2>
         {filteredTasks
           .filter((task) => task.status === "done")
           .map((task) => (
@@ -170,7 +172,9 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
               key={task.id}
               task={task}
               updateStatus={updateTaskStatus}
-              onDragStart={(e) => handleDragStart(e, task)} // 设置拖动事件
+              onDragStart={(e) => handleDragStart(e, task)}
+              onEdit={handleEditTask}
+              onDelete={handleDeleteTask}
             />
           ))}
       </div>
