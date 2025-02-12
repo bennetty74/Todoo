@@ -26,7 +26,7 @@ function createWindow() {
     mainWindow.loadFile(staticPath);
   }
 
-  mainWindow.webContents.openDevTools()
+//   mainWindow.webContents.openDevTools()
 
   // 监听来自 Next.js 的任务提醒
   ipcMain.on('send-task-reminder', (event, task) => {
