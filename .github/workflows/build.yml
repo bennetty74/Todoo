@@ -14,11 +14,12 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        os: [ubuntu-18.04]
-        # os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ubuntu-22.04
+    container:
+      image: multiarch/amd64_ubuntu_18.04_cross
+      credentials:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASS }}
 
     steps:
     - name: Checkout code
