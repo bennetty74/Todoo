@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -26,20 +26,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '22.13.0'
-
-    # - name: Install dependencies (for Next.js)
-    #   run: npm install
-    #   working-directory: ./next-app  
-
-    # - name: Build Next.js app
-    #   run: npm run build  
-    #   working-directory: ./next-app  
-
-    # - name: Replace _next in index.html
-    #   run: |
-    #     sed -i 's|/\\/_next|_next|g' ./out/index.html 
-    #   working-directory: ./next-app  
+        node-version: '18.13.0'
     
     - name: Install dependencies (for Electron)
       run: npm install
