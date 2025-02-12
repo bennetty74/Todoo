@@ -45,6 +45,16 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
     return { start, end };
   };
 
+  const formatPrivority = (val) => {
+    if(val === 'low'){
+      return "低";
+    } else if(val === 'medium'){
+      return "中";
+    } else {
+      return '高';
+    }
+  };
+
   // 渲染日视图
   const renderDayView = () => {
     const dayTasks = filteredTasks.filter(
@@ -52,7 +62,7 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
         new Date(task.time).toDateString() === currentDate.toDateString()
     );
 
-    const timeSlots = ["Morning", "Afternoon", "Evening"];
+    const timeSlots = ["上午", "下午", "晚上"];
     return (
       <div className="grid grid-cols-3 h-full">
         {timeSlots.map((slot) => (
@@ -63,10 +73,10 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
                 const hour = new Date(
                   `1970-01-01T${task.time.split("T")[1]}`
                 ).getHours();
-                if (slot === "Morning" && hour >= 6 && hour < 12) return true;
-                if (slot === "Afternoon" && hour >= 12 && hour < 18)
+                if (slot === "上午" && hour >= 6 && hour < 12) return true;
+                if (slot === "下午" && hour >= 12 && hour < 18)
                   return true;
-                if (slot === "Evening" && hour >= 18) return true;
+                if (slot === "晚上" && hour >= 18) return true;
                 return false;
               })
               .map((task) => (
@@ -96,7 +106,11 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
           );
           return (
             <div key={day.toDateString()} className="p-1">
-              <h3 className="font-bold mb-2">{day.toLocaleDateString()}</h3>
+              {/* 显示星期几和日期 */}
+              <h3 className="font-bold mb-2">
+                {day.toLocaleDateString("default", { weekday: "short" })}{" "}
+                {/* {day.getDate()} */}
+              </h3>
               {dayTasks.map((task) => (
                 <TaskCard key={task.id} task={task} />
               ))}
@@ -124,13 +138,13 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             {task.status === "todo" && (
-              <FaClock className="text-gray-500 mr-2" />
+              <FaClock className="min-w-[15px] min-h-[15px] text-gray-500 mr-2" />
             )}
             {task.status === "doing" && (
-              <FaHourglassHalf className="text-yellow-500 mr-2" />
+              <FaHourglassHalf className="min-w-[15px] min-h-[15px] text-yellow-500 mr-2" />
             )}
             {task.status === "done" && (
-              <FaRegCheckCircle className="text-green-500 mr-2" />
+              <FaRegCheckCircle className="min-w-[15px] min-h-[15px] text-green-500 mr-2" />
             )}
             <span className="text-sm">{task.text}</span>
           </div>
@@ -140,7 +154,7 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
               priorityColor[task.priority]
             }`}
           >
-            {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+            {formatPrivority(task.priority)}
           </div>
         </div>
         <div className="mt-2 text-[8px]">
@@ -185,7 +199,7 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
               viewMode === "day" ? "bg-gray-500 text-white" : ""
             }`}
           >
-            Day
+            日视图
           </button>
           <button
             onClick={() => handleViewChange("week")}
@@ -193,7 +207,7 @@ const CalendarView = ({ tasks, selectedPriorities }) => {
               viewMode === "week" ? "bg-gray-500 text-white" : ""
             }`}
           >
-            Week
+            周视图
           </button>
         </div>
       </div>

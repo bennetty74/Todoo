@@ -49,6 +49,16 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
     setShowContextMenu(false);
   };
 
+  const formatPrivority = (val) => {
+    if(val === 'low'){
+      return "低";
+    } else if(val === 'medium'){
+      return "中";
+    } else {
+      return '高';
+    }
+  };
+
   // 修改任务文本
   const handleEditTask = () => {
     onEdit(task.id, editedTaskText); // 更新任务
@@ -67,23 +77,23 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
       draggable
       onDragStart={onDragStart}
       onContextMenu={handleContextMenu} // 右键菜单
-      className={`p-4 mb-2 rounded shadow-lg border border-gray-300 dark:border-gray-700 ${
+      className={`p-2 mb-2 rounded shadow-lg border border-gray-300 dark:border-gray-700 ${
         task.status === "done" ? "line-through text-gray-500" : ""
       }`}
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center">
-          {task.status === "todo" && <FaClock className="text-gray-500 mr-2" />}
+          {task.status === "todo" && <FaClock className="min-w-[15px] min-h-[15px] text-gray-500 mr-2" />}
           {task.status === "doing" && (
-            <FaHourglassHalf className="text-yellow-500 mr-2" />
+            <FaHourglassHalf className="min-w-[15px] min-h-[15px] text-yellow-500 mr-2" />
           )}
           {task.status === "done" && (
-            <FaRegCheckCircle className="text-green-500 mr-2" />
+            <FaRegCheckCircle className="min-w-[15px] min-h-[15px] text-green-500 mr-2" />
           )}
-          <span>{task.text}</span>
+          <span className="text-sm text-ellipsis">{task.text}</span>
         </div>
-        <div className={`p-1 rounded text-sm ${priorityColor[task.priority]}`}>
-          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}{" "}
+        <div className={`p-0.5 pr-1 pl-1 rounded-[2px] text-[10px] ${priorityColor[task.priority]}`}>
+          {formatPrivority(task.priority)}
           {/* 显示优先级 */}
         </div>
       </div>
@@ -94,7 +104,7 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
           {task.tags.map((tag) => (
             <span
               key={tag}
-              className="border text-gray-600 dark:text-gray-400 border-gray-400 p-1 rounded-sm mr-1"
+              className="border text-[8px] text-gray-600 dark:text-gray-400 border-gray-400 p-0.5 rounded-sm mr-1"
             >
               {tag}
             </span>
@@ -102,7 +112,7 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
         </div>
 
         {/* 显示任务时间 */}
-        <div className="text-gray-500">
+        <div className="text-[8px] text-gray-500">
           {formatTime(task.time)}
         </div>
       </div>

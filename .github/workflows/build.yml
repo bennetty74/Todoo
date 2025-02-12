@@ -14,12 +14,11 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    container:
-      image: multiarch/amd64_ubuntu_18.04_cross
-      credentials:
-        username: ${{secrets.DOCKER_USER}}
-        password: ${{secrets.DOCKER_PASS}}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        
     steps:
     - name: Checkout code
       uses: actions/checkout@v4

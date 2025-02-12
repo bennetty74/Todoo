@@ -103,10 +103,10 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
         onDragOver={(e) => handleDragOver(e, "todo")}
         onDragLeave={() => setDraggingOver(null)}
       >
-        <div className="flex flex-row items-center justify-between">
-          <h2 className="text-xl mb-2">Todo</h2>
-          <FaPlus onClick={openModal}/>
-        </div>
+        {/* <div className="flex flex-row items-center justify-between"> */}
+          <h2 className="text-xl text-center mb-2">Todo</h2>
+          
+        {/* </div> */}
         {filteredTasks
           .filter((task) => task.status === "todo")
           .map((task) => (
@@ -119,6 +119,10 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
               onDelete={handleDeleteTask}
             />
           ))}
+
+          <div className="mt-2 p-2 border rounded flex justify-center items-center dark:border-gray-700" onClick={openModal}>
+            <FaPlus className="text-gray-500"/>
+          </div>
       </div>
 
       {/* Doing Column */}
@@ -133,7 +137,7 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
         onDragOver={(e) => handleDragOver(e, "doing")}
         onDragLeave={() => setDraggingOver(null)}
       >
-        <h2 className="text-xl mb-2">Doing</h2>
+        <h2 className="text-xl text-center mb-2">Doing</h2>
         {filteredTasks
           .filter((task) => task.status === "doing")
           .map((task) => (
@@ -158,7 +162,7 @@ const TodoList = ({ tasks, setTasks, selectedPriorities }) => {
         onDragOver={(e) => handleDragOver(e, "done")}
         onDragLeave={() => setDraggingOver(null)}
       >
-        <h2 className="text-xl mb-2">Done</h2>
+        <h2 className="text-xl text-center mb-2">Done</h2>
         {filteredTasks
           .filter((task) => task.status === "done")
           .map((task) => (

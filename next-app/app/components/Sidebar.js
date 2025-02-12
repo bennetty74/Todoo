@@ -14,7 +14,7 @@ const Sidebar = ({ activeMenu, onMenuClick, toggleTheme, theme, onPriorityFilter
   return (
     <div className="w-64 h-screen p-4 flex flex-col">
       <div className="flex flex-col mb-4">
-      <h3 className="text-sm font-bold mb-2 dark:text-white">View Mode</h3>
+      <h3 className="text-sm font-bold mb-2 dark:text-white"> 任务视图</h3>
         {/* Todo 菜单 */}
         <button
           onClick={() => onMenuClick('todo')}
@@ -22,7 +22,7 @@ const Sidebar = ({ activeMenu, onMenuClick, toggleTheme, theme, onPriorityFilter
             ${activeMenu === 'todo' ? 'text-white bg-gray-500 dark:bg-gray-700' : ''}`}
         >
           <FaTasks className="mr-2" />
-          Todo
+          列表视图
         </button>
 
         {/* Calendar 菜单 */}
@@ -32,12 +32,12 @@ const Sidebar = ({ activeMenu, onMenuClick, toggleTheme, theme, onPriorityFilter
             ${activeMenu === 'calendar' ? 'text-white bg-gray-500 dark:bg-gray-700' : 'text-black'}`}
         >
           <FaCalendarAlt className="mr-2" />
-          Calendar
+          日程视图
         </button>
 
         {/* 优先级筛选菜单 */}
         <div className="mt-4">
-          <h3 className="text-sm font-bold mb-2 dark:text-white">Filter by Priority</h3>
+          <h3 className="text-sm font-bold mb-2 dark:text-white">过滤条件</h3>
           {/* 高优先级 */}
           <button
             onClick={() => handlePriorityToggle('high')}
@@ -45,7 +45,7 @@ const Sidebar = ({ activeMenu, onMenuClick, toggleTheme, theme, onPriorityFilter
               ${selectedPriorities.includes('high') ? 'text-white bg-gray-500 dark:bg-gray-700' : 'text-black'}`}
           >
             <FaArrowUp className="mr-2 text-red-500" />
-            High Priority
+            高优先级
           </button>
           {/* 中优先级 */}
           <button
@@ -54,7 +54,7 @@ const Sidebar = ({ activeMenu, onMenuClick, toggleTheme, theme, onPriorityFilter
               ${selectedPriorities.includes('medium') ? 'text-white bg-gray-500 dark:bg-gray-700' : 'text-black'}`}
           >
             <FaEquals className="mr-2 text-yellow-500" />
-            Medium Priority
+            中优先级
           </button>
           {/* 低优先级 */}
           <button
@@ -63,14 +63,14 @@ const Sidebar = ({ activeMenu, onMenuClick, toggleTheme, theme, onPriorityFilter
               ${selectedPriorities.includes('low') ? 'text-white bg-gray-500 dark:bg-gray-700' : 'text-black'}`}
           >
             <FaArrowDown className="mr-2 text-green-500" />
-            Low Priority
+            低优先级
           </button>
         </div>
       </div>
 
       {/* 主题切换按钮 */}
       <div className="mt-auto">
-      <h3 className="text-sm font-bold mb-2 dark:text-white">Settings</h3>
+      <h3 className="text-sm font-bold mb-2 dark:text-white">设置</h3>
         <button
           onClick={toggleTheme}
           className="flex items-center p-2 text-gray-900 dark:text-white rounded w-full hover:border-gray-400"
@@ -80,7 +80,7 @@ const Sidebar = ({ activeMenu, onMenuClick, toggleTheme, theme, onPriorityFilter
           ) : (
             <FiSun className="mr-2" />
           )}
-          {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+          {theme === 'light' ? '暗夜模式' : '明亮模式'}
         </button>
       </div>
     </div>

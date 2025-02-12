@@ -97,9 +97,9 @@ useEffect(() => {
             onChange={(e) => setPriority(e.target.value)}
             className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded"
           >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+            <option value="low">低优先级</option>
+            <option value="medium">中优先级</option>
+            <option value="high">高优先级</option>
           </select>
         </div>
 
