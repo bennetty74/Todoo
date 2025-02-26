@@ -1,101 +1,115 @@
-'use client'
-import { useState , useEffect} from 'react';
-import { FaTimes } from 'react-icons/fa'; // 引入删除图标
+"use client";
+import { useState, useEffect } from "react";
+import { FaTimes } from "react-icons/fa";
+
+// 格式化时间为 datetime-local 支持的格式
+const formatDateForInput = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const hours = String(d.getHours()).padStart(2, "0");
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
 
 const Modal = ({ isOpen, closeModal, onSave, task }) => {
-  const [taskText, setTaskText] = useState(task ? task.text : '');
-  const [priority, setPriority] = useState(task ? task.priority : 'low');
-  const [tags, setTags] = useState(task ? task.tags : []);
-  const [newTag, setNewTag] = useState('');
-  const [taskTime, setTaskTime] = useState(task ? task.time : new Date().toISOString());
-  
+  const [taskText, setTaskText] = useState("");
+  const [priority, setPriority] = useState("low");
+  const [tags, setTags] = useState([]);
+  const [newTag, setNewTag] = useState("");
+  const [taskTime, setTaskTime] = useState(formatDateForInput(new Date()));
 
-// 在任务传入时，更新 state 以实现编辑功能
-useEffect(() => {
+  // 同步 task 数据到状态
+  useEffect(() => {
     if (task) {
-      setTaskText(task.text);
-      setPriority(task.priority);
-      setTags(task.tags);
-      setTaskTime(task.time);
+      setTaskText(task.text || "");
+      setPriority(task.priority || "low");
+      setTags(task.tags || []);
+      setTaskTime(formatDateForInput(task.time || new Date()));
+    } else {
+      // 如果没有 task（新增模式），重置为默认值
+      clearModal();
     }
-  }, [task]); // 当 task 变化时，更新输入框的状态
-
+  }, [task]); // 依赖 task，当它变化时更新状态
 
   // 处理保存任务
   const handleSave = () => {
+    if (!taskText.trim()) {
+      alert("任务名称不能为空");
+      return;
+    }
     const newTask = {
-      text: taskText,
+      text: taskText.trim(),
       priority,
       tags,
-      time: taskTime, // 使用选择的时间
+      hide: false,
+      time: taskTime,
     };
     onSave(newTask);
-    
-    clearModal()
+    clearModal();
     closeModal();
   };
 
-  // 清空输入框
   const clearModal = () => {
-    setTaskText('')
-    setTags([])
-    setTaskTime(new Date().toISOString())
-  }
+    setTaskText("");
+    setTags([]);
+    setTaskTime(formatDateForInput(new Date()));
+    setPriority("low");
+    setNewTag(""); // 清空新标签输入框
+  };
 
-  // 处理添加 Tag
   const handleAddTag = (e) => {
-    if (e.key === 'Enter' && newTag.trim()) {
-      setTags([...tags, newTag.trim()]);
-      setNewTag('');
+    if (e.key === "Enter" && newTag.trim()) {
+      const trimmedTag = newTag.trim();
+      if (!tags.includes(trimmedTag)) {
+        setTags([...tags, trimmedTag]);
+      }
+      setNewTag("");
     }
   };
 
-  // 删除 Tag
   const handleRemoveTag = (index) => {
-    const newTags = tags.filter((_, i) => i !== index);
-    setTags(newTags);
+    setTags(tags.filter((_, i) => i !== index));
   };
-
 
   if (!isOpen) return null;
 
-  const TaskTimeInput = ({ taskTime, setTaskTime }) => {
-    return (
-      <input
-        type="datetime-local"
-        value={taskTime}  // 使用本地时区时间
-        onChange={e=>setTaskTime(e.target.value)}
-        className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded flex-1"
-      />
-    );
-  };
+  const TaskTimeInput = ({ value, onChange, className }) => (
+    <input
+      type="datetime-local"
+      value={value}
+      step="1800"
+      onChange={onChange}
+      className={className}
+    />
+  );
 
   return (
     <div className="absolute inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-20">
-      <div className="bg-white dark:bg-gray-700 p-4 rounded shadow-lg w-96">
-        <h3 className="text-xl mb-4">{task ? 'Edit Task' : 'Add Task'}</h3>
+      <div className="bg-white dark:bg-gray-800 p-4 rounded shadow-lg w-96">
+        <h3 className="text-xl mb-4 text-gray-900 dark:text-white">
+          {task ? "编辑任务" : "添加任务"}
+        </h3>
 
-        {/* 任务名称输入框 */}
         <input
           type="text"
           value={taskText}
           onChange={(e) => setTaskText(e.target.value)}
-          placeholder="Enter task name"
-          className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded w-full mb-4"
+          placeholder="输入任务名称"
+          className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded w-full mb-4 text-gray-900 dark:text-white"
         />
 
-        {/* 任务时间和优先级在同一行 */}
         <div className="flex mb-4 gap-4">
-          {/* 任务时间选择 */}
           <TaskTimeInput
-            taskTime={taskTime} setTaskTime={setTaskTime}
+            value={taskTime}
+            onChange={(e) => setTaskTime(e.target.value)}
+            className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded flex-1 text-gray-900 dark:text-white"
           />
-
-          {/* 优先级选择 */}
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
-            className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded"
+            className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded text-gray-900 dark:text-white"
           >
             <option value="low">低优先级</option>
             <option value="medium">中优先级</option>
@@ -103,25 +117,25 @@ useEffect(() => {
           </select>
         </div>
 
-        {/* Tag 输入框和展示 */}
         <div className="mb-4">
           <input
             type="text"
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
             onKeyDown={handleAddTag}
-            placeholder="Add tag (press Enter to add)"
-            className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded w-full"
+            placeholder="添加标签，最多4个字 (回车键添加)"
+            maxLength={4}
+            className="bg-white dark:bg-gray-700 p-2 border border-gray-400 rounded w-full text-gray-900 dark:text-white"
           />
-          <div className="mt-2 flex flex-wrap">
+          <div className="mt-2 flex flex-wrap gap-2">
             {tags.map((tag, idx) => (
               <span
-                key={idx}
-                className="relative bg-gray-200 dark:bg-gray-600 p-1 pl-2 pr-2 rounded mr-1 mb-1"
+                key={tag}
+                className="relative bg-gray-200 dark:bg-gray-600 p-1 pl-2 pr-6 rounded text-gray-900 dark:text-white"
               >
                 {tag}
                 <FaTimes
-                  className="absolute -top-1 -right-1 text-red-400 rounded-full cursor-pointer text-xs"
+                  className="absolute top-1 right-1 text-red-400 cursor-pointer text-xs"
                   onClick={() => handleRemoveTag(idx)}
                 />
               </span>
@@ -129,19 +143,18 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* 操作按钮 */}
         <div className="flex justify-between">
           <button
             onClick={closeModal}
-            className="bg-white dark:bg-gray-700 p-2 border border-gray-600 rounded hover:border-gray-400"
+            className="bg-white dark:bg-gray-700 p-2 border border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
           >
-            Cancel
+            取消
           </button>
           <button
             onClick={handleSave}
-            className="bg-gray-600 dark:bg-white p-2 border border-gray-600 text-white dark:text-black rounded hover:bg-gray-800"
+            className="bg-gray-600 dark:bg-gray-500 p-2 border border-gray-600 text-white rounded hover:bg-gray-700 dark:hover:bg-gray-400"
           >
-            Save
+            保存
           </button>
         </div>
       </div>

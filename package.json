@@ -17,6 +17,9 @@
   "build": {
     "appId": "com.roloo.todoo",
     "productName": "Todoo",
+    "directories": {
+      "buildResources": "build"
+    },
     "mac": {
       "icon": "build/icons/mac/icon.icns",
       "target": "dmg"
@@ -27,7 +30,13 @@
     },
     "linux": {
       "icon": "build/icons/png",
-      "target": "AppImage"
+      "target": "AppImage",
+      "desktop": {
+        "Name": "Todoo",
+        "Icon": "todoo",
+        "Type": "Application",
+        "Categories": "Utility"
+      }
     }
   }
 }

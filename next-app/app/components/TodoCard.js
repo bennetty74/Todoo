@@ -22,7 +22,7 @@ const formatTime = (time) => {
   return new Intl.DateTimeFormat('default', options).format(date);
 };
 
-const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
+const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete, onHide }) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [contextMenuPosition, setContextMenuPosition] = useState({
     x: 0,
@@ -115,7 +115,16 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
               closeContextMenu();
             }}
           >
-            Edit Task
+            编辑
+          </div>
+          <div
+            className="p-2 pl-4 pr-4 rounded cursor-pointer hover:bg-gray-500 hover:text-white"
+            onClick={() => {
+              onHide(task.id);
+              closeContextMenu();
+            }}
+          >
+            隐藏
           </div>
           <div
             className="p-2 pl-4 pr-4 rounded cursor-pointer text-red-500 hover:bg-gray-500"
@@ -124,7 +133,7 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
               closeContextMenu();
             }}
           >
-            Delete Task
+            删除
           </div>
           <div
             className="p-2 pl-4 pr-4 rounded cursor-pointer hover:bg-gray-500"
@@ -132,7 +141,7 @@ const TodoCard = ({ task, updateStatus, onDragStart, onEdit, onDelete }) => {
               closeContextMenu();
             }}
           >
-            Cancel
+            取消
           </div>
         </div>
       )}

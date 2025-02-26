@@ -6,7 +6,7 @@ import {
   FaClock,
 } from "react-icons/fa";
 
-const CalendarView = ({ tasks, selectedPriorities }) => {
+const CalendarView = ({ tasks, selectedPriorities, selectedTags }) => {
   const [viewMode, setViewMode] = useState("day"); // 默认周视图
   const [currentDate, setCurrentDate] = useState(new Date()); // 当前日期
 
